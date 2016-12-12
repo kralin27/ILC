@@ -1,0 +1,87 @@
+create database
+	WeatherDB
+create tables
+	tblWeatherReading
+	tblWeatherReadingMissing
+	tblTimeStampRef
+create users
+
+populate tblWeatherReading
+
+load stored procedures
+
+populate tblTimeStampRef and tblWeatherReadingMissing
+	call prcWeatherReadingMissing
+
+variables
+	[A] = folder where the downloaded data is stored (see LoadData.sql)
+	[B] = folder where the database scripts and stored procedures are stored
+
+---------------------------------------------------------------
+-- documentation
+---------------------------------------------------------------
+	http://dev.mysql.com/doc/refman/5.7/en/
+	http://dev.mysql.com/doc/refman/5.7/en/mysql.html (Command Line Client)
+	
+---------------------------------------------------------------	
+-- Useful Command Line Client Commands
+---------------------------------------------------------------
+	status
+	exit
+	use <database>	
+	
+	source 
+		-- to run a script
+	call 
+		-- to call a stored procedure
+
+---------------------------------------------------------------
+-- steps
+---------------------------------------------------------------
+
+1 - download data from https://weather.evergreen.edu and move file to [A]
+		file name = campbels.csv
+		date range to download = 03/20/2008 to today
+		
+2 - modify the data file
+	use a text editor to replace all " UTC" with "" from timestamp values
+	To [A] save modified file as campbels_mod.csv
+	
+3 - Open the MySQL Command Line Client and enter root password
+	START / ALL PROGRAMS / MySQL / MySQL Server 5.7 / MySQL Server 5.7 Command Line Client
+	
+	prompt \d \u> -- changes prompt to "DatabaseName UserName>"
+	
+	steps 4-8 are run from the Command Line Client
+
+4 - run the CreateDatabase.sql script from [B] to create the database and tables
+	source C:\ILC\DatabaseFinal\Scripts\CreateDatabase.sql
+
+-- the database, users, and all tables have been created	
+-- note: the database name and the value for db.Url in ..\TESCWeather\src\main\resources\config.properties must agree
+--       db.Url=jdbc:mysql://localhost:3306/<name of the database goes here>?useSSL=false
+	
+5 - make sure the WeatherDB is the current database	
+	status 
+	prompt \d \u> -- changes prompt to "DatabaseName UserName>"
+	use WeatherDB
+	
+6 - create the stored procedures (modify file path)	
+	source C:\ILC\DatabaseFinal\StoredProcedures\prcWeatherReadingMissing.sql
+	source C:\ILC\DatabaseFinal\StoredProcedures\prcWeatherReading.sql
+	source C:\ILC\DatabaseFinal\StoredProcedures\prcWeatherReadingsDate.sql
+	source C:\ILC\DatabaseFinal\StoredProcedures\prcWeatherReadingsMeasure.sql
+	source C:\ILC\DatabaseFinal\StoredProcedures\prcWeatherReadingsSummary.sql
+
+-- ok to run the web app now (empty database)
+	
+7 - load data from campbels_mod.csv into tblWeatherReading	(modify file path and LoadData.sql)	
+	source C:\ILC\DatabaseFinal\Scripts\LoadData.sql
+	
+8 - run prcWeatherReadingMissing to populate tblTimeStampRef and tblWeatherReadingMissing (takes about 5 minutes)	
+	call prcWeatherReadingMissing();
+
+-- ok to run the web app now (populated database)
+
+-- Note: steps from 1 thru 8 can be re-run to recreate the database and load it afresh	
+-- the CREATE DATABASE <...database name...>; statement in CreateDatabase.sql determines the name of the database

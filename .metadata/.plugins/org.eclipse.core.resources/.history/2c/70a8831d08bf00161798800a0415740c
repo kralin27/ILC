@@ -1,0 +1,127 @@
+package com.kralin27.ilc.fall2016.domain.repository.impl;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.kralin27.ilc.fall2016.domain.Timestamp;
+import com.kralin27.ilc.fall2016.domain.WeatherReading;
+import com.kralin27.ilc.fall2016.domain.WeatherReadingsSummary;
+import com.kralin27.ilc.fall2016.domain.repository.WeatherRepository;
+
+@Repository
+public class WeatherRepositoryImpl implements WeatherRepository{
+	
+	@Autowired
+	private NamedParameterJdbcTemplate jdbcTemplate;
+	
+	// An interface used by JdbcTemplate for mapping rows of a ResultSet on a per-row basis. 
+	// Implementations of this interface perform the actual work of mapping each row to a result object
+	private static final class WeatherReadingMapper implements RowMapper<WeatherReading> {
+		public WeatherReading mapRow(ResultSet rs, int rowNum) throws SQLException {
+	    	 WeatherReading weatherReading = new WeatherReading();
+	    	 weatherReading.setId(rs.getInt("id"));
+	    	 weatherReading.setTimestamp(rs.getString("timestamp"));
+	    	 weatherReading.setAir_temp_c_max(rs.getDouble("air_temp_c_max"));
+	    	 weatherReading.setAir_temp_c_min(rs.getDouble("air_temp_c_min"));	   
+	    	 weatherReading.setRain_mm_total(rs.getDouble("rain_mm_total"));
+	    	 weatherReading.setWind_speed_ms_max(rs.getDouble("wind_speed_ms_max"));
+	    	 return weatherReading;
+		}
+	}	
+    
+	private static final class WeatherReadingsSummaryMapper implements RowMapper<WeatherReadingsSummary> {
+		public WeatherReadingsSummary mapRow(ResultSet rs, int rowNum) throws SQLException {
+			WeatherReadingsSummary weatherReadingsSummary = new WeatherReadingsSummary();
+				weatherReadingsSummary.setReadingsCount(rs.getInt("ReadingsCount"));
+				weatherReadingsSummary.setReadingFirst(rs.getString("ReadingFirst"));
+				weatherReadingsSummary.setReadingLast(rs.getString("ReadingLast"));
+				weatherReadingsSummary.setMissingReadingCount(rs.getInt("MissingReadingCount"));
+	    	 return weatherReadingsSummary;
+		}
+	}		
+	
+	private static final class TimestampMapper implements RowMapper<Timestamp>{
+		public Timestamp mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Timestamp timestamp = new Timestamp();
+			timestamp.setTimestamp(rs.getString("Date"));
+			timestamp.setCount(rs.getInt("count"));
+			return timestamp;
+		}
+	}
+	
+	
+	@Override
+	public Integer getRecordCount() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		//no parameters required in the query but queryForObject requires a Map anyway
+		int recordCount = jdbcTemplate.queryForObject("select count(*) from tblWeatherReading",params, Integer.class);
+   
+		return recordCount;
+	}
+	
+	@Override
+	public WeatherReading getWeatherReadingById(Integer id) {
+    	String SQL = "CALL prcWeatherReading(:id)";  
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+
+		return jdbcTemplate.queryForObject(SQL, params, new WeatherReadingMapper());		
+	}
+	
+    @Override
+    public List<WeatherReading> getWeatherReadingsByDate(String date) {
+    	String SQL = "CALL prcWeatherReadingsDate(:date)";  
+    	
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	params.put("date", date);
+
+    	return jdbcTemplate.query(SQL, params, new WeatherReadingMapper());
+   }
+
+    @Override
+    public List<WeatherReading> getWeatherReadingsByMeasure(String measure, Integer records) {
+    	String SQL = "CALL prcWeatherReadingsMeasure(:measure, :records)";  
+    	
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	params.put("measure", measure);
+    	params.put("records", records);
+    	
+    	return jdbcTemplate.query(SQL, params, new WeatherReadingMapper());
+   } 
+     
+	@Override
+	public WeatherReadingsSummary getWeatherReadingsSummary() {
+    	String SQL = "CALL prcWeatherReadingsSummary()";  
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		return jdbcTemplate.queryForObject(SQL, params, new WeatherReadingsSummaryMapper());		
+	}    
+	
+	@Override 
+	public List<Timestamp> getWeatherReadingMissing(){
+		String SQL = "CALL prcWeatherReadingsMissing()"; 
+		Map<String, Object> params = new HashMap<String,Object>();
+		return jdbcTemplate.query(SQL, params, new TimestampMapper());
+	}
+
+	@Override
+	public List<Timestamp> getWeatherReadingMissingDetail(String date) {
+		String SQL = "CALL prcWeatherReadingsMissingListDetail(:date)";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("date", date);
+		return jdbcTemplate.query(SQL, params, new TimestampMapper()); 
+	}
+    
+}
+
+

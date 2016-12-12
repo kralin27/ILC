@@ -1,0 +1,5 @@
+package com.kralin27.ilc.fall2016.domain;
+
+public class Timestamp {
+
+}

@@ -1,0 +1,4 @@
+source C:\Eddie\LindseyProject\DatabaseFinal\StoredProcedures\prcWeatherReadingMissing.sql
+source C:\Eddie\LindseyProject\DatabaseFinal\StoredProcedures\prcWeatherReading.sql
+source C:\Eddie\LindseyProject\DatabaseFinal\StoredProcedures\prcWeatherReadingsDate.sql
+source C:\Eddie\LindseyProject\DatabaseFinal\StoredProcedures\prcWeatherReadingsMeasure.sql
