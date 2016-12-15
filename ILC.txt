@@ -3,7 +3,7 @@ Fall Quarter ILC: Developing a Full-Stack Data Driven Web Application
 Source Code: https://github.com/kralin27/ILC
 
 --------------------------------------------------------------------
--- Overview 
+## Overview 
 
 A general description of the project structure and learning goals. 
 --------------------------------------------------------------------
@@ -15,7 +15,7 @@ I focused on structuring my application based on best practices that are often a
 While I was not able to complete as much of my initial project plan as I had hoped, I still gained valuable experience working with the Model View Controller archtecture and understanding how structure of an enterprise-level web application is organized. I found that getting the opportunity to create a full stack application gave me a much more solid understanding of the development process and how different components work together. I found that of all the components I enjoyed the database development the most, and I see myself spending time in the future expanding upon the database foundations I gained working with this application. 
 
 --------------------------------------------------------------------
--- Development Process 
+## Development Process 
 --------------------------------------------------------------------
 
 Workflow: 
@@ -32,7 +32,7 @@ View
 
 
 --------------------------------------------------------------------
--- Overview of Web Application Layers and Spring MVC Request flow 
+## Overview of Web Application Layers and Spring MVC Request flow 
 --------------------------------------------------------------------
 
 A web application can be organized into four main layers: 
@@ -58,7 +58,7 @@ Below is an overview of a typical Spring MVC request flow:
 5. 
 
 --------------------------------------------------------------------
--- Overview of Major Classes 
+## Overview of Major Classes 
 --------------------------------------------------------------------
 
 Application Configuration: 
@@ -77,7 +77,7 @@ There are three important methods in DispatcherServletInitializer:
 
 
 --------------------------------------------------------------------
--- Self Evaluation
+## Self Evaluation
 
 A summary of progress for individual learning objectives as defined by my original contract. 
 --------------------------------------------------------------------
