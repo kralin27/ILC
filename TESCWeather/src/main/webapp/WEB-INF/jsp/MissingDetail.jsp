@@ -6,9 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Weather Readings Missing</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
 </head>
 <body>
-	<div align="left">
+	<div align="center">
 		<!-- display model.heading value -->
 		<h1>Missing Weather Readings - ${heading}</h1>
 		<a href="<%=request.getHeader("referer")%>"> Return to List</a>

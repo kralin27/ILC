@@ -15,13 +15,16 @@
      </head>
      
      <body>
-          <div class="jumbotron">
+          <div class="jumbotron" align="center">
                   <h1> ${greeting} </h1>
                   <p> ${tagline} </p>
-<%--                   <p> Number of records in tblWeatherReading = ${RecordCount} </p>   --%>
-                  <p> <a href=" <spring:url value="/Search" />"> Search </a> </p> 
-				  <p> <a href=" <spring:url value="/Summary" />"> Summary </a> </p>  
-				  <p> <a href=" <spring:url value="/WeatherReadings/Missing" />"> Dates with Missing Readings </a> </p>  
           </div>
+          
+          <div align="center">
+                 <a class="btn btn-info btn-large" href=" <spring:url value="/Search" />">Search</a>
+				 <a class="btn btn-info btn-large" href=" <spring:url value="/Summary" />"> Summary </a> 
+				 <a class="btn btn-info btn-large" href=" <spring:url value="/WeatherReadings/Missing" />"> Dates with Missing Readings </a>
+          </div>
+          
      </body>
 </html>

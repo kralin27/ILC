@@ -1,0 +1,52 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Summary</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+</head>
+<body>
+	<div align="left">
+		<h1>Weather Readings Summary</h1>
+
+		<a href=" <spring:url value="/" /> "> Home </a>
+
+		<br><br>		
+	<table class="table table-hover">
+	
+		<thead>
+			<tr>
+				<th align="right">Readings</th>
+				<th>${weatherReadingsSummary.getReadingsCount()}</th>
+			</tr>
+		</thead>
+		
+		<thead>
+			<tr>
+				<th align="right">First Reading</th>
+				<th>${weatherReadingsSummary.getReadingFirst()}</th>
+			</tr>
+		</thead>
+		
+		<thead>
+			<tr>
+				<th align="right">Last Reading</th>
+				<th>${weatherReadingsSummary.getReadingLast()}</th>
+			</tr>
+		</thead>
+		
+		<thead>
+			<tr>
+				<th align="right"># of Missing Readings</th>
+				<th>${weatherReadingsSummary.getMissingReadingCount()}</th>
+			</tr>	
+		</thead>
+	
+		</table>
+	</div>
+</body>
+</html>
+

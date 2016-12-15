@@ -29,10 +29,29 @@ public class WeatherRepositoryImpl implements WeatherRepository{
 	    	 WeatherReading weatherReading = new WeatherReading();
 	    	 weatherReading.setId(rs.getInt("id"));
 	    	 weatherReading.setTimestamp(rs.getString("timestamp"));
+	    	 weatherReading.setRecord_num(rs.getDouble("record_num"));
 	    	 weatherReading.setAir_temp_c_max(rs.getDouble("air_temp_c_max"));
-	    	 weatherReading.setAir_temp_c_min(rs.getDouble("air_temp_c_min"));	   
-	    	 weatherReading.setRain_mm_total(rs.getDouble("rain_mm_total"));
+	    	 weatherReading.setAir_temp_c_min(rs.getDouble("air_temp_c_min"));	
+	    	 weatherReading.setAir_temp_c_avg(rs.getDouble("air_temp_c_avg"));
+	    	 weatherReading.setRel_hum_avg(rs.getDouble("rel_hum_avg"));
+	    	 weatherReading.setRel_hum_max(rs.getDouble("rel_hum_max"));
+	    	 weatherReading.setRel_hum_min(rs.getDouble("rel_hum_min"));
 	    	 weatherReading.setWind_speed_ms_max(rs.getDouble("wind_speed_ms_max"));
+	    	 weatherReading.setWind_speed_avg(rs.getDouble("wind_speed_avg"));
+	    	 weatherReading.setWind_dir_avg(rs.getDouble("wind_dir_avg"));
+	    	 weatherReading.setSolar_rad_w_avg(rs.getDouble("solar_rad_w_avg"));
+	    	 weatherReading.setSolar_rad_w_max(rs.getDouble("solar_rad_w_max"));
+	    	 weatherReading.setRain_mm_total(rs.getDouble("rain_mm_total"));
+	    	 weatherReading.setDew_point_c_max(rs.getDouble("dew_point_c_max"));
+	    	 weatherReading.setDew_point_c_min(rs.getDouble("dew_point_c_min"));
+	    	 weatherReading.setWind_chill_c_max(rs.getDouble("wind_chill_c_max"));
+	    	 weatherReading.setWind_chill_c_min(rs.getDouble("wind_chill_c_min"));
+	    	 weatherReading.setHeat_index_c_max(rs.getDouble("heat_index_c_max"));
+	    	 weatherReading.setHeat_index_c_min(rs.getDouble("heat_index_c_min"));
+	    	 weatherReading.setEtrs_mm_total(rs.getDouble("etrs_mm_total"));
+	    	 weatherReading.setRso(rs.getDouble("rso"));
+	    	 weatherReading.setCreated_at(rs.getString("created_at"));
+	    	 weatherReading.setUpdated_at(rs.getString("updated_at"));
 	    	 return weatherReading;
 		}
 	}	

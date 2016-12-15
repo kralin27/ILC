@@ -1,36 +1,51 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html>
-<head>
+<head lang="en">
+     <head>
+          <meta charset="utf-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Search</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
 </head>
 <body>
-
-<h2>Weather Readings Search</h2>
-
 		<a href=" <spring:url value="/" /> "> Home </a>
 
-<form method="GET" action=" <spring:url value="/WeatherReadings/Date" />">
-	<input type="text" name="date" size="10">
-	<!-- HTTP GET method will append ?date=<value entered> to request URL -->
-	<input type="submit" value="For Date">
-</form>
+<div class="jumbotron">
 
-<form method="GET" action=" <spring:url value="/WeatherReadings/Measure/Rain" />">
-	<input type="submit" value="Rain">
-</form>
+                  <h1 align="center">Search Weather Readings</h2>
+                  <h4 align="center">Please enter a date to view a summary of the readings collected during that 24 hour period or select on of the predefined queries.</h3>
+</div>
 
-<form method="GET" action=" <spring:url value="/WeatherReadings/Measure/Wind" />">
-	<input type="submit" value="Wind">
-</form>
 
-<form method="GET" action=" <spring:url value="/WeatherReadings/Measure/TempMin" />">
-	<input type="submit" value="Temp Min">
-</form>
+<div class="col-md-4 col-md-offset-4">
+	<form method="GET" action=" <spring:url value="/WeatherReadings/Date" />">
+		<p>
+			<input type="text" name="date" size="10" >
+		</p>
+		<p>
+		<button type="submit" class="btn btn-large btn-block btn-info"> Go</button>
+	</form>
+	
+	<form method="GET" action=" <spring:url value="/WeatherReadings/Measure/Rain" />">
+		<input type="submit" class="btn btn-large btn-block btn-info" value="10 Rainiest Days">
+	</form><p>
+	
+	<form method="GET" action=" <spring:url value="/WeatherReadings/Measure/Wind" />">
+		<input type="submit" class="btn btn-large btn-block btn-info" value="10 Windiest Days">
+	</form><p>
+	
+	<form method="GET" action=" <spring:url value="/WeatherReadings/Measure/TempMin" />">
+		<input type="submit" class="btn btn-large btn-block btn-info"value="Minimum Temperatures">
+	</form><p>
+	
+	<form method="GET" action=" <spring:url value="/WeatherReadings/Measure/TempMax" />">
+		<input type="submit" class="btn btn-large btn-block btn-info" value="Maximum Temperatures">
+	</form><p>  	
 
-<form method="GET" action=" <spring:url value="/WeatherReadings/Measure/TempMax" />">
-	<input type="submit" value="Temp Max">
-</form>
-
+</div>
 </body>
 </html>
